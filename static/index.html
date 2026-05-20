@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sprint Room</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section id="startView" class="entry">
+        <div class="brand">Sprint Room</div>
+        <h1>Run the sprint room.</h1>
+        <div id="sessionNotice" class="notice hidden">No active session found. Create a new session to continue.</div>
+        <div class="start-options">
+          <button id="createSessionButton" class="start-option" type="button">
+            <span>Pointing room</span>
+            <small>Estimate backlog complexity with the team.</small>
+          </button>
+          <button id="createRetroButton" class="start-option secondary-option" type="button">
+            <span>Sprint retro</span>
+            <small>Capture what went well, improvements, and feedback.</small>
+          </button>
+        </div>
+      </section>
+
+      <section id="joinView" class="entry hidden">
+        <div class="brand">Sprint Room</div>
+        <h1>Join the session.</h1>
+        <form id="joinForm" class="join-card">
+          <label for="nameInput">Your name</label>
+          <div class="join-row">
+            <input id="nameInput" name="name" autocomplete="name" maxlength="40" placeholder="Sam" required />
+            <button type="submit">Join session</button>
+          </div>
+        </form>
+      </section>
+
+      <section id="roomView" class="room hidden">
+        <header class="topbar">
+          <div class="story-editor">
+            <div class="brand">Sprint Room</div>
+            <input id="storyTitle" class="story-title" maxlength="140" placeholder="Story title" />
+            <textarea id="storyDescription" class="story-description" maxlength="2000" placeholder="Story description"></textarea>
+          </div>
+          <div class="actions">
+            <button id="copyLinkButton" class="secondary" type="button">Copy link</button>
+            <button id="newSessionButton" class="secondary" type="button">New session</button>
+          </div>
+        </header>
+
+        <section class="workspace">
+          <aside class="story-sidebar">
+            <div class="section-heading">
+              <h2>Stories</h2>
+              <span id="storyCount">0</span>
+            </div>
+            <div id="storyList" class="story-list"></div>
+            <form id="storyForm" class="story-form">
+              <label for="newStoryTitle">Add story</label>
+              <input id="newStoryTitle" maxlength="140" placeholder="Story title" />
+              <textarea id="newStoryDescription" maxlength="2000" placeholder="Description"></textarea>
+              <button type="submit">Add to session</button>
+            </form>
+          </aside>
+
+          <div class="main-column">
+            <section class="estimate-grid">
+              <div class="voting-panel">
+                <div class="panel-heading">
+                  <h2>Pick your estimate</h2>
+                  <span id="connectionStatus">Connecting</span>
+                </div>
+                <div id="pointButtons" class="points"></div>
+              </div>
+
+              <aside class="summary-panel">
+                <div class="metric">
+                  <span>Team average</span>
+                  <strong id="averageValue">Hidden</strong>
+                </div>
+                <div class="distribution">
+                  <span>Vote spread</span>
+                  <div id="voteDistribution" class="distribution-list"></div>
+                </div>
+                <div class="controls">
+                  <button id="revealButton" type="button">Reveal votes</button>
+                  <button id="nextStoryButton" type="button">Next story</button>
+                  <button id="resetButton" class="secondary" type="button">Clear votes</button>
+                </div>
+              </aside>
+            </section>
+
+            <section>
+              <div class="section-heading">
+                <h2>Team</h2>
+                <span id="voteCount">0 voted</span>
+              </div>
+              <div id="participants" class="participants"></div>
+            </section>
+          </div>
+        </section>
+      </section>
+
+      <section id="retroView" class="room hidden">
+        <header class="topbar">
+          <div class="story-editor">
+            <div class="brand">Sprint Room</div>
+            <h1 class="retro-title">Sprint retro</h1>
+          </div>
+          <div class="actions">
+            <button id="revealRetroButton" type="button">Reveal board</button>
+            <button id="copyRetroLinkButton" class="secondary" type="button">Copy link</button>
+            <button id="newRetroSessionButton" class="secondary" type="button">New session</button>
+          </div>
+        </header>
+
+        <div id="retroPrivacyNotice" class="notice retro-notice">Retro cards are private until the facilitator reveals the board.</div>
+
+        <section class="retro-board">
+          <article class="retro-column">
+            <h2>Went well</h2>
+            <div id="wentWellItems" class="retro-items"></div>
+            <form class="retro-form" data-category="wentWell">
+              <textarea maxlength="1000" placeholder="Add a note"></textarea>
+              <button type="submit">Add</button>
+            </form>
+          </article>
+          <article class="retro-column">
+            <h2>Could be better</h2>
+            <div id="improveItems" class="retro-items"></div>
+            <form class="retro-form" data-category="improve">
+              <textarea maxlength="1000" placeholder="Add a note"></textarea>
+              <button type="submit">Add</button>
+            </form>
+          </article>
+          <article class="retro-column">
+            <h2>Feedback</h2>
+            <div id="feedbackItems" class="retro-items"></div>
+            <form class="retro-form" data-category="feedback">
+              <textarea maxlength="1000" placeholder="Add a note"></textarea>
+              <button type="submit">Add</button>
+            </form>
+          </article>
+        </section>
+      </section>
+    </main>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="/app.js"></script>
+  </body>
+</html>

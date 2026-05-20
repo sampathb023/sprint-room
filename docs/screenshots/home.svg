@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sprint Room home screen</title>
+  <desc id="desc">Landing page with options to create a pointing room or sprint retro session.</desc>
+  <defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#eff7ee"/><stop offset="0.5" stop-color="#f6f1e8"/><stop offset="1" stop-color="#fff4ee"/></linearGradient><filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#1c231e" flood-opacity="0.12"/></filter></defs>
+  <rect width="1440" height="900" fill="url(#bg)"/>
+  <g transform="translate(260 210)" font-family="Inter, Arial, sans-serif">
+    <text x="0" y="0" fill="#17604a" font-size="18" font-weight="900">SPRINT ROOM</text>
+    <text x="0" y="105" fill="#17211b" font-size="88" font-weight="900">Run the sprint room.</text>
+    <g transform="translate(0 165)" filter="url(#shadow)"><rect width="330" height="160" rx="8" fill="#2f8f6f"/><text x="28" y="64" fill="#fff" font-size="28" font-weight="900">Pointing room</text><text x="28" y="103" fill="#ddf0e9" font-size="18" font-weight="800">Estimate backlog complexity</text><text x="28" y="129" fill="#ddf0e9" font-size="18" font-weight="800">with the team.</text></g>
+    <g transform="translate(354 165)" filter="url(#shadow)"><rect width="330" height="160" rx="8" fill="#2e6f9e"/><text x="28" y="64" fill="#fff" font-size="28" font-weight="900">Sprint retro</text><text x="28" y="103" fill="#dbeefa" font-size="18" font-weight="800">Capture wins, improvements,</text><text x="28" y="129" fill="#dbeefa" font-size="18" font-weight="800">and team feedback.</text></g>
+  </g>
+</svg>
