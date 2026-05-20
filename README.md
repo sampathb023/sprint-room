@@ -48,23 +48,60 @@ Open `http://127.0.0.1:8000`, choose **Pointing room** or **Sprint retro**, then
 4. The facilitator clicks **Reveal board** when the team is ready to discuss.
 5. After reveal, everyone sees the full board.
 
-## Deploy
+## Run With Docker
+
+Build the image:
+
+```bash
+docker build -t sprint-room .
+```
+
+Run it with persistent session storage:
+
+```bash
+docker run -d \
+  --name sprint-room \
+  -p 8000:8000 \
+  -e SESSION_TTL_DAYS=90 \
+  -v sprint-room-data:/app/data \
+  sprint-room
+```
+
+Open `http://localhost:8000`. The Docker volume keeps session history across container restarts and image upgrades.
+
+To release a new version locally:
+
+```bash
+docker build -t sprint-room .
+docker stop sprint-room
+docker rm sprint-room
+docker run -d --name sprint-room -p 8000:8000 -e SESSION_TTL_DAYS=90 -v sprint-room-data:/app/data sprint-room
+```
+
+## Internal Testing / Hosted Container
 
 The app uses only the Python standard library. It serves the static website and WebSocket endpoint from the same process, so it can run in a small AWS container, EC2 instance, or internal dev portal service.
 
-Set `HOST=0.0.0.0` and `PORT` as needed:
+Recommended AWS shape:
+
+1. Build and push the Docker image to ECR.
+2. Run one ECS/Fargate task or one EC2 container.
+3. Put an HTTPS load balancer or reverse proxy in front.
+4. Ensure WebSocket traffic is allowed.
+5. Mount persistent storage at `/app/data`, or replace file storage with DynamoDB before scaling to multiple instances.
+
+Useful environment variables:
 
 ```bash
-HOST=0.0.0.0 PORT=8000 python3 app.py
+HOST=0.0.0.0
+PORT=8000
+DATA_FILE=/app/data/sessions.json
+SESSION_TTL_DAYS=90
 ```
 
-Sessions are saved to `data/sessions.json` by default and expire after 30 days of inactivity. You can tune this for AWS:
+### Storage Note
 
-```bash
-SESSION_TTL_DAYS=90 DATA_FILE=/app/data/sessions.json HOST=0.0.0.0 PORT=8000 python3 app.py
-```
-
-For container hosting, mount `/app/data` to persistent storage if you want sessions to survive container replacement.
+File-backed sessions are simple and work well for one running container. If you run multiple app instances behind a load balancer, use sticky sessions plus shared storage, or move session state to DynamoDB/Redis/Postgres.
 
 ## Notes
 
